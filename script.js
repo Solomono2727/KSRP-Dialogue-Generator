@@ -6,43 +6,96 @@ const templates = [
   "🧡 | Hope you have a great time in KSRP!"
 ];
 
-const container = document.getElementById('dialogues');
+const hmMessages = [
+  ":h ⚠️| Reminder, please report any rule breaking to our staff team. Use !mod or !help to call for assistance.",
+
+  ":h 🚨| We ask all members to balence out the team as we have an unequal amount. Failure to do so will result in forced balancing.",
+
+  ":h 🏢| Reminder to go outside of safe zones (Spawn Areas) to role-play! Failure to do so will result in punishments.",
+
+  ":h 📝| We ask all members to check our community rules to ensure a safe and uninterrupted role-play. Save you the trouble of a punishment!",
+
+  ":h 🚗| Reminder, all Exotic, Electric, and Classic Vehicles are for Server Boosters, VIP, and whitelisted members only!",
+
+  ":h 🔫| The AK47 and Heavy Guns are whitelisted to players with specific roles. Using without permission can lead to punishments.",
+
+  ":h 🛠️| Our apologies for the delayed responses. We have many calls and limited staff available. Please bear with us.",
+
+  ":h 🛡️| Our staff team’s job is to enforce the rules of the community. Please bear with them if they end up interfering with your role-plays!",
+
+
+  ":m 👋 | Hello, welcome to Keystone Role-play. If you enjoy our server, ensure to join our comms! Invite code:\nkeystonerp",
+
+  ":m ‼️| The priority timer is now active! All crimes are prohibited and will result in punishments, faced to a kick on the first offense. Follow all laws, pull over for Law Enforcement, Ect.",
+
+  ":m 💎| Due to an enlarged amount of rule violations, we will be starting to enforce harsher penalties for rule violators. We ask you to follow the rules.",
+
+  ":m ⚠️| If you see any hackers, exploiters, scammers, or any other member performing activities outside of the TOS, please immediately inform the staff team. !mod or !help.",
+
+  ":m 🛡️| If you are interested in joining our staff team or departments, please head to the communications server. Invite code: keystonerp"
+];
+
+const favContainer = document.getElementById("favorites");
+let favorites = JSON.parse(localStorage.getItem("favs")) || [];
 
 function render() {
-  container.innerHTML = '';
-  const name = document.getElementById('name').value || '[Name]';
-  const rank = document.getElementById('rank').value;
+  const container = document.getElementById("dialogues");
+  container.innerHTML = "";
 
-  templates.forEach((template, index) => {
-    let text = template
-      .replace('{name}', name)
-      .replace('{rank}', rank);
+  const name = document.getElementById("name").value || "[Name]";
+  const rank = document.getElementById("rank").value;
 
-    const div = document.createElement('div');
-    div.className = 'dialogue';
-
-    div.innerHTML = `
-      <button class="copy-btn" onclick="copyText(${index})">Copy</button>
-      <div class="dialogue-text" id="text-${index}">${text}</div>
-    `;
-
-    container.appendChild(div);
+  templates.forEach(t => {
+    let text = t.replace("{name}", name).replace("{rank}", rank);
+    createCard(container, text);
   });
 }
 
-function copyText(index) {
-  const text = document.getElementById(`text-${index}`).innerText;
-  navigator.clipboard.writeText(text);
-  showToast();
+function renderHM() {
+  const container = document.getElementById("hm-messages");
+  hmMessages.forEach(msg => createCard(container, msg));
+}
+
+function renderFavs() {
+  favContainer.innerHTML = "";
+  favorites.forEach(f => createCard(favContainer, f, true));
+}
+
+function createCard(container, text, isFav = false) {
+  const div = document.createElement("div");
+  div.className = "dialogue";
+
+  div.innerHTML = `
+    <button class="fav-btn">⭐</button>
+    <button class="copy-btn">Copy</button>
+    <div>${text}</div>
+  `;
+
+  div.querySelector(".copy-btn").onclick = () => {
+    navigator.clipboard.writeText(text);
+    showToast();
+  };
+
+  div.querySelector(".fav-btn").onclick = () => {
+    if (!favorites.includes(text)) {
+      favorites.push(text);
+      localStorage.setItem("favs", JSON.stringify(favorites));
+      renderFavs();
+    }
+  };
+
+  container.appendChild(div);
 }
 
 function showToast() {
-  const toast = document.getElementById('toast');
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 1500);
+  const t = document.getElementById("toast");
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 1200);
 }
 
-document.getElementById('name').addEventListener('input', render);
-document.getElementById('rank').addEventListener('change', render);
+document.getElementById("name").addEventListener("input", render);
+document.getElementById("rank").addEventListener("change", render);
 
 render();
+renderHM();
+renderFavs();
