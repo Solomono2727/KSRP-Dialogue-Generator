@@ -38,6 +38,8 @@ const hmMessages = [
 const favContainer = document.getElementById("favorites");
 let favorites = JSON.parse(localStorage.getItem("favs")) || [];
 
+/* ================= MAIN RENDER ================= */
+
 function render() {
   const container = document.getElementById("dialogues");
   container.innerHTML = "";
@@ -51,41 +53,62 @@ function render() {
   });
 }
 
+/* ================= H&M ================= */
+
 function renderHM() {
   const container = document.getElementById("hm-messages");
+  container.innerHTML = "";
+
   hmMessages.forEach(msg => createCard(container, msg));
 }
 
+/* ================= FAVORITES ================= */
+
 function renderFavs() {
   favContainer.innerHTML = "";
-  favorites.forEach(f => createCard(favContainer, f, true));
+  favorites.forEach(f => createCard(favContainer, f));
 }
 
-function createCard(container, text, isFav = false) {
+/* ================= CARD CREATION ================= */
+
+function createCard(container, text) {
   const div = document.createElement("div");
   div.className = "dialogue";
 
+  const isFav = favorites.includes(text);
+
   div.innerHTML = `
-    <button class="fav-btn">⭐</button>
+    <button class="fav-btn ${isFav ? 'active' : ''}">⭐</button>
     <button class="copy-btn">Copy</button>
     <div>${text}</div>
   `;
 
+  // Copy
   div.querySelector(".copy-btn").onclick = () => {
     navigator.clipboard.writeText(text);
     showToast();
   };
 
+  // ⭐ Toggle Favorite
   div.querySelector(".fav-btn").onclick = () => {
-    if (!favorites.includes(text)) {
+    if (favorites.includes(text)) {
+      favorites = favorites.filter(f => f !== text);
+    } else {
       favorites.push(text);
-      localStorage.setItem("favs", JSON.stringify(favorites));
-      renderFavs();
     }
+
+    localStorage.setItem("favs", JSON.stringify(favorites));
+
+    // Re-render everything
+    render();
+    renderHM();
+    renderFavs();
   };
 
   container.appendChild(div);
 }
+
+/* ================= TOAST ================= */
 
 function showToast() {
   const t = document.getElementById("toast");
@@ -93,8 +116,19 @@ function showToast() {
   setTimeout(() => t.classList.remove("show"), 1200);
 }
 
-document.getElementById("name").addEventListener("input", render);
-document.getElementById("rank").addEventListener("change", render);
+/* ================= EVENTS ================= */
+
+document.getElementById("name").addEventListener("input", () => {
+  render();
+  renderHM();
+});
+
+document.getElementById("rank").addEventListener("change", () => {
+  render();
+  renderHM();
+});
+
+/* ================= INIT ================= */
 
 render();
 renderHM();
