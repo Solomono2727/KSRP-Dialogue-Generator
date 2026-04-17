@@ -1,6 +1,6 @@
 const templates = [
   "👋 | Hello! My name is {name}, I am from the KSRP {rank} team. How may I help / assist you today? Say 'void' if I am late or you no longer need assistance",
-  "⚠ | Please show me a clip or proof or at least 3 witnesses are needed or we cannot do anything.",
+  "⚠ | Please show me a clip it is neccessary to have proof or I cannot do anything.",
   "❔ | Is there anything else I can help you with today?",
   "📶 | Make sure to join our communications server! And rate me in #feedback, I hope you enjoy!",
   "🧡 | Hope you have a great time in KSRP!"
