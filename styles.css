@@ -13,8 +13,6 @@ body {
 
 h1 {
   text-align: center;
-  margin-bottom: 20px;
-  font-weight: 600;
 }
 
 .card {
@@ -23,10 +21,9 @@ h1 {
   padding: 20px;
   border-radius: 16px;
   margin-bottom: 15px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
 }
 
-input {
+input, select {
   width: 100%;
   padding: 10px;
   border-radius: 10px;
@@ -42,43 +39,21 @@ input {
   gap: 10px;
 }
 
-/* Modern dropdown */
+/* dropdown */
 .select-wrapper {
   position: relative;
-  margin-top: 10px;
-}
-
-.select-wrapper select {
-  appearance: none;
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  background: #020617;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.select-wrapper select:hover {
-  background: #020617;
-}
-
-.select-wrapper select:focus {
-  outline: 2px solid #3b82f6;
 }
 
 .select-wrapper::after {
-  content: '▾';
+  content: "▾";
   position: absolute;
-  right: 12px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   color: #94a3b8;
-  pointer-events: none;
 }
 
+/* dialogue card */
 .dialogue {
   background: #020617;
   padding: 15px;
@@ -89,37 +64,34 @@ input {
 }
 
 .dialogue:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  transform: translateY(-3px);
 }
 
-.dialogue-text {
-  font-size: 14px;
-  line-height: 1.5;
+.copy-btn, .fav-btn {
+  position: absolute;
+  top: 10px;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 .copy-btn {
-  position: absolute;
-  top: 10px;
   right: 10px;
   background: #3b82f6;
-  border: none;
-  border-radius: 8px;
-  padding: 5px 10px;
   color: white;
-  cursor: pointer;
-  font-size: 12px;
 }
 
-.copy-btn:hover {
-  background: #2563eb;
+.fav-btn {
+  right: 60px;
+  background: #facc15;
 }
 
 .toast {
   position: fixed;
   bottom: 20px;
   left: 50%;
-  transform: translateX(-50%) translateY(20px);
+  transform: translateX(-50%);
   background: #22c55e;
   padding: 10px 20px;
   border-radius: 10px;
@@ -129,11 +101,4 @@ input {
 
 .toast.show {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-@media(max-width: 600px) {
-  .row {
-    grid-template-columns: 1fr;
-  }
 }
