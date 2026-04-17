@@ -57,6 +57,7 @@ input, select {
 .dialogue {
   background: #020617;
   padding: 15px;
+  padding-right: 110px; /* 👈 space for buttons */
   border-radius: 12px;
   margin-top: 10px;
   position: relative;
@@ -67,6 +68,7 @@ input, select {
   transform: translateY(-3px);
 }
 
+/* buttons */
 .copy-btn, .fav-btn {
   position: absolute;
   top: 10px;
@@ -74,31 +76,25 @@ input, select {
   padding: 5px 8px;
   border-radius: 6px;
   cursor: pointer;
+  font-size: 12px;
 }
 
+/* copy button */
 .copy-btn {
   right: 10px;
   background: #3b82f6;
   color: white;
 }
 
+/* favorite button */
 .fav-btn {
   right: 60px;
+  background: #334155;
+  color: #facc15;
+}
+
+/* active favorite */
+.fav-btn.active {
   background: #facc15;
-}
-
-.toast {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #22c55e;
-  padding: 10px 20px;
-  border-radius: 10px;
-  opacity: 0;
-  transition: 0.3s;
-}
-
-.toast.show {
-  opacity: 1;
+  color: black;
 }
