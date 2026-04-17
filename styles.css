@@ -15,14 +15,17 @@ h1 {
   text-align: center;
 }
 
+/* cards */
 .card {
   background: rgba(30, 41, 59, 0.7);
   backdrop-filter: blur(12px);
   padding: 20px;
   border-radius: 16px;
   margin-bottom: 15px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4); /* 👈 added depth */
 }
 
+/* inputs */
 input, select {
   width: 100%;
   padding: 10px;
@@ -31,8 +34,14 @@ input, select {
   background: #020617;
   color: white;
   margin-top: 10px;
+  transition: 0.2s;
 }
 
+input:focus, select:focus {
+  outline: 2px solid #3b82f6; /* 👈 glow focus */
+}
+
+/* layout */
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -51,21 +60,30 @@ input, select {
   top: 50%;
   transform: translateY(-50%);
   color: #94a3b8;
+  pointer-events: none;
 }
 
 /* dialogue card */
 .dialogue {
   background: #020617;
   padding: 15px;
-  padding-right: 110px; /* 👈 space for buttons */
+  padding-right: 110px; /* space for buttons */
   border-radius: 12px;
   margin-top: 10px;
   position: relative;
   transition: 0.2s;
+  border: 1px solid rgba(255,255,255,0.05); /* 👈 subtle border */
 }
 
 .dialogue:hover {
   transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+/* message text */
+.dialogue div {
+  line-height: 1.5;
+  white-space: pre-line; /* 👈 FIXES your \n line breaks */
 }
 
 /* buttons */
@@ -77,24 +95,57 @@ input, select {
   border-radius: 6px;
   cursor: pointer;
   font-size: 12px;
+  transition: 0.2s;
 }
 
-/* copy button */
+/* copy */
 .copy-btn {
   right: 10px;
   background: #3b82f6;
   color: white;
 }
 
-/* favorite button */
+.copy-btn:hover {
+  background: #2563eb;
+}
+
+/* favorite */
 .fav-btn {
   right: 60px;
   background: #334155;
   color: #facc15;
 }
 
-/* active favorite */
 .fav-btn.active {
   background: #facc15;
   color: black;
+}
+
+.fav-btn:hover {
+  transform: scale(1.1); /* 👈 subtle pop */
+}
+
+/* toast */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #22c55e;
+  padding: 10px 20px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* mobile */
+@media(max-width: 600px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
 }
